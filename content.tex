@@ -203,18 +203,17 @@ and has different alignment requirements.
 The memory aligment and size requirements, in bytes, of each part of the
 virtqueue are summarized in the following table:
 
-\begin{verbatim}
-+------------+-----------------------------------------+
-| Virtqueue Part    | Alignment | Size                 |
-+------------+-----------------------------------------+
-+------------+-----------------------------------------+
-| Descriptor Table  | 16        | 16 * (Queue Size)    |
-+------------+-----------------------------------------+
-| Available Ring    | 2         | 6 + 2 * (Queue Size) |
-+------------+-----------------------------------------+
-| Used Ring         | 4         | 6 + 4 * (Queue Size) |
-+------------+-----------------------------------------+
-\end{verbatim}
+\begin{tabular}{|l|l|l|}
+\hline
+Virtqueue Part & Alignment & Size \\
+\hline\hline
+Descriptor Table & 16 & 16 * (Queue Size) \\
+\hline
+Available Ring & 2 & 6 + 2 * (Queue Size) \\
+\hline
+Used Ring & 4 & 6 + 4 * (Queue Size) \\
+\hline
+\end{tabular}
 
 The Alignment column gives the miminum alignment: for each part
 of the virtqueue, the physical address of the first byte of it
@@ -245,11 +244,11 @@ Each virtqueue occupies two or more physically-contiguous pages
 (usually defined as 4096 bytes, but depending on the transport)
 and consists of three parts:
 
-\begin{verbatim}
-+-------------------+-----------------------------------+-----------+
-| Descriptor Table  |   Available Ring     (padding)    | Used Ring |
-+-------------------+-----------------------------------+-----------+
-\end{verbatim}
+\begin{tabular}{|c|lr|c|}
+\hline
+Descriptor Table & Available Ring & (padding) & Used Ring \\
+\hline
+\end{tabular}
 
 The bus-specific Queue Size field controls the total number of bytes
 required for the virtqueue according to the following formula:
@@ -932,16 +931,15 @@ If MSI-X is enabled for the device, two additional fields
 immediately follow this header:
 
 
-\begin{verbatim}
-+------------++----------------+--------+
-| Bits       || 16             | 16     |
-+------------++----------------+--------+
-| Read/Write || R+W            | R+W    |
-+------------++----------------+--------+
-| Purpose    || Configuration  | Queue  |
-| (MSI-X)    || Vector         | Vector |
-+------------++----------------+--------+
-\end{verbatim}
+\begin{tabular}{|l||l|l|}
+\hline
+Bits & 16 & 16 \\
+\hline
+Read / Write & R+W & R+W \\
+\hline
+Purpose (MSI-X) & Configuration Vector & Queue Vector \\
+\hline
+\end{tabular}
 
 Note: When MSI-X capability is enabled, device specific configuration starts at
 byte offset 24 in virtio header structure. When MSI-X capability is not
@@ -952,16 +950,16 @@ If you turn it off again, they move back!
 Immediately following these general headers, there may be
 device-specific headers:
 
-\begin{verbatim}
-+------------++--------------------+
-| Bits       || Device Specific    |
-+------------++--------------------+
-| Read/Write || Device Specific    |
-+------------++--------------------+
-| Purpose    || Device Specific... |
-|            ||                    |
-+------------++--------------------+
-\end{verbatim}
+\begin{tabular}{|l||l|l|}
+\hline
+Bits & Device Specific & \multirow{3}{*}{...} \\
+\cline{1-2}
+Read / Write & Device Specific & \\
+\cline{1-2}
+Purpose & Device Specific & \\
+\hline
+\end{tabular}
+
 
 Note that only Feature Bits 0 to 31 are accessible through the
 Legacy Interface. When used through the Legacy Interface,
@@ -1742,23 +1740,23 @@ importantly SENSE ID.
 For a virtio-ccw proxy device, SENSE ID will return the following
 information:
 
-\begin{verbatim}
-+-------+--------------------------------------------+
-| Bytes | Contents                                   |
-|-------|--------------------------------------------|
-| 0     | reserved              | 0xff               |
-|-------|-----------------------|--------------------|
-| 1-2   | control unit type     | 0x3832             |
-|-------|-----------------------|--------------------|
-| 3     | control unit model    | <virtio device id> |
-|-------|-----------------------|--------------------|
-| 4-5   | device type           | zeroes (unset)     |
-|-------|-----------------------|--------------------|
-| 6     | device model          | zeroes (unset)     |
-|-------|-----------------------|--------------------|
-| 7-255 | extended SenseId data | zeroes (unset)     |
-+-------+--------------------------------------------+
-\end{verbatim}
+\begin{tabular}{|l||l|l|}
+\hline
+Bytes & \multicolumn{2}{|l|}{Contents} \\
+\hline\hline
+0 & reserved & 0xff \\
+\hline
+1-2 & control unit type & 0x3832 \\
+\hline
+3 & control unit model & \textsl{virtio device id} \\
+\hline
+4-5 & device type & zeroes (unset) \\
+\hline
+6 & device model & zeroes (unset) \\
+\hline
+7-255 & extended SenseId data & zeroes (unset) \\
+\hline
+\end{tabular}
 
 A driver for virtio-ccw devices MUST check for a control unit
 type of 0x3832 and MUST ignore the device type and model.
@@ -1824,18 +1822,17 @@ data portion and data revision-dependent additional desired options.
 
 The following values are supported:
 
-\begin{verbatim}
-+----------+--------+-----------+--------------------------------+
-| revision | length | data      | remarks                        |
-|----------|--------|-----------|--------------------------------|
-| 0        | 0      | <empty>   | legacy interface; transitional |
-|          |        |           | devices only                   |
-|----------|--------|-----------|--------------------------------|
-| 1        | 0      | <empty>   | Virtio 1.0                     |
-|----------|--------|-----------|--------------------------------|
-| 2-n      |        |           | reserved for later revisions   |
-+----------+--------+-----------+--------------------------------+
-\end{verbatim}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Revision & Length & Data & Remarks \\
+\hline\hline
+0 & 0 & \textsl{empty} & legacy interface; transitional devices only \\
+\hline
+1 & 0 & \textsl{empty} & Virtio 1.0 \\
+\hline
+2-n & & & reserved for later revisions \\
+\hline
+\end{tabular}
 
 Note that a change in the virtio standard does not neccessarily
 correspond to a change in the virtio-ccw revision.
@@ -1936,11 +1933,11 @@ and align the alignment.
 The virtqueue is physically contiguous, with padded added to make the
 used ring meet the align value:
 
-\begin{verbatim}
-+-------------------+-----------------------------------+-----------+
-| Descriptor Table  |   Available Ring     (padding)    | Used Ring |
-+-------------------+-----------------------------------+-----------+
-\end{verbatim}
+\begin{tabular}{|c|lr|c|}
+\hline
+Descriptor Table & Available Ring & (padding) & Used Ring \\
+\hline
+\end{tabular}
 
 The calculation for total size is as follows:
 
@@ -2140,20 +2137,19 @@ characteristics of channel I/O interact badly with the host block
 I/O backend). Instead, it uses a diagnose 0x500 call with subcode
 3 specifying the queue, as follows:
 
-\begin{verbatim}
-+------+-------------------+--------------+
-| GPR  |   Input Value     | Output Value |
-+------+-------------------+--------------+
-+------+-------------------+--------------+
-|  1   |       0x3         |              |
-+------+-------------------+--------------+
-|  2   |  Subchannel ID    | Host Cookie  |
-+------+-------------------+--------------+
-|  3   | Virtqueue number  |              |
-+------+-------------------+--------------+
-|  4   |   Host Cookie     |              |
-+------+-------------------+--------------+
-\end{verbatim}
+\begin{tabular}{|c|c|c|}
+\hline
+GPR & Input Value & Output Value \\
+\hline\hline
+1 & 0x3 & \\
+\hline
+2 & Subchannel ID & Host Cookie \\
+\hline
+3 & Virtqueue number & \\
+\hline
+4 & Host Cookie & \\
+\hline
+\end{tabular}
 
 Host cookie is an optional per-virtqueue 64 bit value that can be
 used by the hypervisor to speed up the notification execution.
@@ -2188,38 +2184,37 @@ defined in this standard.
 
 Discovering what devices are available and their type is bus-dependent.
 
-\begin{verbatim}
-+------------+--------------------+
-| Device ID  |   Virtio Device    |
-+------------+--------------------+
-+------------+--------------------+
-| 0          | reserved (invalid) |
-+------------+--------------------+
-| 1          |   network card     |
-+------------+--------------------+
-| 2          |   block device     |
-+------------+--------------------+
-| 3          |      console       |
-+------------+--------------------+
-| 4          |  entropy source    |
-+------------+--------------------+
-| 5          | memory ballooning  |
-+------------+--------------------+
-| 6          |     ioMemory       |
-+------------+--------------------+
-| 7          |       rpmsg        |
-+------------+--------------------+
-| 8          |     SCSI host      |
-+------------+--------------------+
-| 9          |   9P transport     |
-+------------+--------------------+
-| 10         |   mac80211 wlan    |
-+------------+--------------------+
-| 11         |   rproc serial     |
-+------------+--------------------+
-| 12         |   virtio CAIF      |
-+------------+--------------------+
-\end{verbatim}
+\begin{tabular}{|l|c|}
+\hline
+Device ID & Virtio Device \\
+\hline\hline
+0 & reserved (invalid) \\
+\hline
+1 & network card \\
+\hline
+2 & block device \\
+\hline
+3 & console \\
+\hline
+4 & entropy source \\
+\hline
+5 & memory ballooning \\
+\hline
+6 & ioMemory \\
+\hline
+7 & rpmsg \\
+\hline
+8 & SCSI host \\
+\hline
+9 & 9P transport \\
+\hline
+10 & mac80211 wlan \\
+\hline
+11 & rproc serial \\
+\hline
+12 & virtio CAIF \\
+\hline
+\end{tabular}
 
 \section{Network Device}\label{sec:Device Types / Network Device}
 
