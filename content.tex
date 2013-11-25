@@ -2160,9 +2160,11 @@ used by the hypervisor to speed up the notification execution.
 For each notification, the output value is returned in GPR2 and
 should be passed in GPR4 for the next notification:
 
+\begin{lstlisting}
         info->cookie = do_notify(schid,
                                  virtqueue_get_queue_index(vq),
                                  info->cookie);
+\end{lstlisting}
 
 \subsubsection{Early printk for Virtio Consoles}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Operation / Early printk for Virtio Consoles}
 
