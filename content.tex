@@ -5,10 +5,12 @@ A virtio device is discovered and identified by a bus-specific method
 \ref{sec:Virtio Transport Options / Virtio Over MMIO}~\nameref{sec:Virtio Transport Options / Virtio Over MMIO} and \ref{sec:Virtio Transport Options / Virtio Over Channel I/O}~\nameref{sec:Virtio Transport Options / Virtio Over Channel I/O}).  Each
 device consists of the following parts:
 
-o Device Status field
-o Feature bits
-o Configuration space
-o One or more virtqueues
+\begin{itemize}
+\item Device Status field
+\item Feature bits
+\item Configuration space
+\item One or more virtqueues
+\end{itemize}
 
 Unless explicitly specified otherwise, all multi-byte fields are little-endian.
 To reinforce this the examples use typenames like "le16" instead of "uint16_t".
@@ -187,11 +189,13 @@ of the queue.
 
 Each virtqueue consists of three parts:
 
-        Descriptor Table
+\begin{itemize}
+\item Descriptor Table
 
-        Available Ring
+\item Available Ring
 
-        Used Ring
+\item Used Ring
+\end{itemize}
 
 where each part is physically-contiguous in guest memory,
 and has different alignment requirements.
@@ -1781,19 +1785,21 @@ virtio:
 The virtio-ccw device acts like a normal channel device, as specified
 in \hyperref[intro:S390 PoP]{[S390 PoP]} and \hyperref[intro:S390 Common I/O]{[S390 Common I/O]}. In particular:
 
-- A device must post a unit check with command reject for any command
+\begin{itemize}
+\item A device must post a unit check with command reject for any command
   it does not support.
 
-- If a driver did not suppress length checks for a channel command,
+\item If a driver did not suppress length checks for a channel command,
   the device must present a subchannel status as detailed in the
   architecture when the actual length did not match the expected length.
 
-- If a driver did suppress length checks for a channel command, the
+\item If a driver did suppress length checks for a channel command, the
   device must present a check condition if the transmitted data does
   not contain enough data to process the command. If the driver submitted
   a buffer that was too long, the device should accept the command.
   The driver should attempt to provide the correct length even if it
   suppresses length checks.
+\end{itemize}
 
 \subsection{Device Initialization}\label{sec:Virtio Transport Options / Virtio over channel I/O / Device Initialization}
 
@@ -2040,10 +2046,12 @@ guest address of the indicators in a 64 bit value.
 
 Indicators for notification via adapter I/O interrupts consist of
 two stages:
-- a summary indicator byte covering the virtqueues for one or more
+\begin{itemize}
+\item a summary indicator byte covering the virtqueues for one or more
   virtio-ccw proxy devices
-- a set of contigous indicator bits for the virtqueues for a
+\item a set of contigous indicator bits for the virtqueues for a
   virtio-ccw proxy device
+\end{itemize}
 
 To communicate the location of the summary and queue indicator bits,
 the driver uses the CCW_CMD_SET_IND_ADAPTER command with the following
@@ -2401,12 +2409,13 @@ the different features the driver negotiated.
   are set as follows. Otherwise, the packet must be fully
   checksummed, and flags is zero.
 
-  • flags has the VIRTIO_NET_HDR_F_NEEDS_CSUM set,
+\begin{itemize}
+  \item flags has the VIRTIO_NET_HDR_F_NEEDS_CSUM set,
 
-  • csum_start is set to the offset within the packet to begin checksumming,
+  \item csum_start is set to the offset within the packet to begin checksumming,
     and
 
-  • csum_offset indicates how many bytes after the csum_start the
+  \item csum_offset indicates how many bytes after the csum_start the
     new (16 bit ones' complement) checksum should be placed.
 \footnote{For example, consider a partially checksummed TCP (IPv4) packet.
 It will have a 14 byte ethernet header and 20 byte IP header
@@ -2418,6 +2427,7 @@ of the TCP pseudo header, so that replacing it by the ones'
 complement checksum of the TCP header and body will give the
 correct result.
 }
+\end{itemize}
 
 2. If the driver negotiated
   VIRTIO_NET_F_HOST_TSO4, TSO6 or UFO, and the packet requires
@@ -2428,22 +2438,24 @@ correct result.
   metadata indicates how to replicate the packet header to cut it
   into smaller packets. The other gso fields are set:
 
-  • hdr_len is a hint to the device as to how much of the header
+\begin{itemize}
+  \item hdr_len is a hint to the device as to how much of the header
     needs to be kept to copy into each packet, usually set to the
     length of the headers, including the transport header.
 \footnote{Due to various bugs in implementations, this field is not useful
 as a guarantee of the transport header size.
 }
 
-  • gso_size is the maximum size of each packet beyond that
+  \item gso_size is the maximum size of each packet beyond that
     header (ie. MSS).
 
-  • If the driver negotiated the VIRTIO_NET_F_HOST_ECN feature,
+  \item If the driver negotiated the VIRTIO_NET_F_HOST_ECN feature,
     the VIRTIO_NET_HDR_GSO_ECN bit may be set in “gso_type” as
     well, indicating that the TCP packet has the ECN bit set.
 \footnote{This case is not handled by some older hardware, so is called out
 specifically in the protocol.
 }
+\end{itemize}
 
 3. If the driver negotiated the VIRTIO_NET_F_MRG_RXBUF feature,
   the num_buffers field is set to zero.
@@ -2622,7 +2634,7 @@ on VIRTIO_NET_F_CTRL_VQ), it can ask the guest to send gratuitous
 packets; this is usually done after the guest has been physically
 migrated, and needs to announce its presence on the new network
 links. (As hypervisor does not have the knowledge of guest
-network configuration (eg. tagged vlan) it is simplest to prod
+etwork configuration (eg. tagged vlan) it is simplest to prod
 the guest in this way).
 
 \begin{lstlisting}
@@ -3265,10 +3277,12 @@ SCSI host to which many targets and LUNs are attached.
 
 The virtio SCSI device services two kinds of requests:
 
-• command requests for a logical unit;
+\begin{itemize}
+\item command requests for a logical unit;
 
-• task management functions related to a logical unit, target or
+\item task management functions related to a logical unit, target or
   command.
+\end{itemize}
 
 The device is also able to send out notifications about added and
 removed logical units. Together, these capabilities provide a
@@ -3695,17 +3709,19 @@ contents of the event field. The following events are defined:
 
   This event is fired in the following cases:
 
-  • When the device detects in the eventq a buffer that is
+\begin{itemize}
+  \item When the device detects in the eventq a buffer that is
     shorter than what is indicated in the configuration field, it
     might use it immediately and put this dummy value in the
     event field. A well-written driver will never observe this
     situation.
 
-  • When events are dropped, the device may signal this event as
+  \item When events are dropped, the device may signal this event as
     soon as the drivers makes a buffer available, in order to
     request action from the driver. In this case, of course, this
     event will be reported with the VIRTIO_SCSI_T_EVENTS_MISSED
     flag.
+\end{itemize}
 
   Transport reset
 \begin{lstlisting}
@@ -3726,15 +3742,17 @@ contents of the event field. The following events are defined:
   The reason value is one of the three \#define values appearing
   above:
 
-  • VIRTIO_SCSI_EVT_RESET_REMOVED (“LUN/target removed”) is used
+\begin{itemize}
+  \item VIRTIO_SCSI_EVT_RESET_REMOVED (“LUN/target removed”) is used
     if the target or logical unit is no longer able to receive
     commands.
 
-  • VIRTIO_SCSI_EVT_RESET_HARD (“LUN hard reset”) is used if the
+  \item VIRTIO_SCSI_EVT_RESET_HARD (“LUN hard reset”) is used if the
     logical unit has been reset, but is still present.
 
-  • VIRTIO_SCSI_EVT_RESET_RESCAN (“rescan LUN/target”) is used if
+  \item VIRTIO_SCSI_EVT_RESET_RESCAN (“rescan LUN/target”) is used if
     a target or logical unit has just appeared on the device.
+\end{itemize}
 
   The “removed” and “rescan” events, when sent for LUN 0, may
   apply to the entire target. After receiving them the driver
@@ -3748,14 +3766,16 @@ contents of the event field. The following events are defined:
   does not apply to newly appeared buses or targets, since the
   application has never discovered them):
 
-  • “LUN/target removed” maps to sense key ILLEGAL REQUEST, asc
+\begin{itemize}
+  \item “LUN/target removed” maps to sense key ILLEGAL REQUEST, asc
     0x25, ascq 0x00 (LOGICAL UNIT NOT SUPPORTED)
 
-  • “LUN hard reset” maps to sense key UNIT ATTENTION, asc 0x29
+  \item “LUN hard reset” maps to sense key UNIT ATTENTION, asc 0x29
     (POWER ON, RESET OR BUS DEVICE RESET OCCURRED)
 
-  • “rescan LUN/target” maps to sense key UNIT ATTENTION, asc
+  \item “rescan LUN/target” maps to sense key UNIT ATTENTION, asc
     0x3f, ascq 0x0e (REPORTED LUNS DATA HAS CHANGED)
+\end{itemize}
 
   The preferred way to detect transport reset is always to use
   events, because sense codes are only seen by the driver when it
