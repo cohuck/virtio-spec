@@ -24,25 +24,27 @@ indicating the status of each device.
 
 This field is 0 upon reset, otherwise at least one bit should be set:
 
-  ACKNOWLEDGE (1) Indicates that the guest OS has found the
+\begin{description}
+  \item [{ACKNOWLEDGE~(1)}] Indicates that the guest OS has found the
   device and recognized it as a valid virtio device.
 
-  DRIVER (2) Indicates that the guest OS knows how to drive the
+  \item [{DRIVER~(2)}] Indicates that the guest OS knows how to drive the
   device. Under Linux, drivers can be loadable modules so there
   may be a significant (or infinite) delay before setting this
   bit.
 
-  FEATURES_OK (8) Indicates that the driver has acknowledged all the
+  \item [{FEATURES_OK~(8)}] Indicates that the driver has acknowledged all the
   features it understands, and feature negotiation is complete.
 
-  DRIVER_OK (4) Indicates that the driver is set up and ready to
+  \item [{DRIVER_OK~(4)}] Indicates that the driver is set up and ready to
   drive the device.
 
-  FAILED (128) Indicates that something went wrong in the guest,
+  \item [{FAILED~(128)}] Indicates that something went wrong in the guest,
   and it has given up on the device. This could be an internal
   error, or the driver didn't like the device for some reason, or
   even a fatal error during device operation. The device must be
   reset before attempting to re-initialize.
+\end{description}
 
 \section{Feature Bits}\label{sec:Basic Facilities of a Virtio Device / Feature Bits}
 
