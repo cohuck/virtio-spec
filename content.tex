@@ -2239,7 +2239,15 @@ features.
 
 \subsection{Virtqueues}\label{sec:Device Types / Network Device / Virtqueues}
 
- 0:receiveq. 1:transmitq. 2:controlq
+\begin{tabular}{|l|l|}
+\hline
+0 & receiveq \\
+\hline
+1 & transmitq \\
+\hline
+2 & controlq \\
+\hline
+\end{tabular}
 
  Virtqueue 2 only exists if VIRTIO_NET_F_CTRL_VQ set.
 
@@ -2715,7 +2723,11 @@ device except where noted.
   2
 
 \subsection{Virtqueues}\label{sec:Device Types / Block Device / Virtqueues}
-  0:requestq
+\begin{tabular}{|l|l|}
+\hline
+0 & requestq \\
+\hline
+\end{tabular}
 
 \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature bits}
 
@@ -2977,8 +2989,23 @@ data and outgoing characters are placed in the transmit queue.
 
 \subsection{Virtqueues}\label{sec:Device Types / Console Device / Virtqueues}
 
-   0:receiveq(port0). 1:transmitq(port0), 2:control receiveq, 3:control transmitq, 4:receiveq(port1), 5:transmitq(port1),
-  ...
+\begin{tabular}{|l|l|}
+\hline
+0 & receiveq (port0) \\
+\hline
+1 & transmitq (port0) \\
+\hline
+2 & control receiveq \\
+\hline
+3 & control transmitq \\
+\hline
+4 & receiveq (port1) \\
+\hline
+5 & transmitq (port1) \\
+\hline
+\multicolumn{2}{|c|}{...} \\
+\hline
+\end{tabular}
 
   Ports 2 onwards only exist if VIRTIO_CONSOLE_F_MULTIPORT is set.
 
@@ -3102,7 +3129,11 @@ guest use.
   4
 
 \subsection{Virtqueues}\label{sec:Device Types / Entropy Device / Virtqueues}
-  0:requestq.
+\begin{tabular}{|l|l|}
+\hline
+0 & requestq \\
+\hline
+\end{tabular}
 
 \subsection{Feature bits}\label{sec:Device Types / Entropy Device / Feature bits}
   None currently defined
@@ -3134,7 +3165,15 @@ guest memory statistics to the host.
   5
 
 \subsection{Virtqueues}\label{sec:Device Types / Memory Balloon Device / Virtqueues}
-  0:inflateq. 1:deflateq. 2:statsq.
+\begin{tabular}{|l|l|}
+\hline
+0 & inflateq \\
+\hline
+1 & deflateq \\
+\hline
+2 & statsq \\
+\hline
+\end{tabular}
 
   Virtqueue 2 only exists if VIRTIO_BALLON_F_STATS_VQ set.
 
@@ -3310,7 +3349,17 @@ targets that receive and process the requests.
   8
 
 \subsection{Virtqueues}\label{sec:Device Types / SCSI Host Device / Virtqueues}
-   0:controlq; 1:eventq; 2..n:request queues.
+\begin{tabular}{|l|l|}
+\hline
+0 & controlq \\
+\hline
+1 & eventq \\
+\hline
+2 & \multirow{3}{*}{request queues} \\
+.. & \\
+n & \\
+\hline
+\end{tabular}
 
 \subsection{Feature bits}\label{sec:Device Types / SCSI Host Device / Feature bits}
 
