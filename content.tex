@@ -2245,47 +2245,51 @@ features.
 
 \subsection{Feature bits}\label{sec:Device Types / Network Device / Feature bits}
 
-  VIRTIO_NET_F_CSUM (0) Device handles packets with partial checksum
+\begin{description}
+\item [{VIRTIO_NET_F_CSUM~(0)}] Device handles packets with partial checksum
 
-  VIRTIO_NET_F_GUEST_CSUM (1) Guest handles packets with partial checksum
+\item [{VIRTIO_NET_F_GUEST_CSUM~(1)}] Guest handles packets with partial checksum
 
-  VIRTIO_NET_F_CTRL_GUEST_OFFLOADS (2) Control channel offloads
+\item [{VIRTIO_NET_F_CTRL_GUEST_OFFLOADS~(2)}] Control channel offloads
         reconfiguration support.
 
-  VIRTIO_NET_F_MAC (5) Device has given MAC address.
+\item [{VIRTIO_NET_F_MAC~(5)}] Device has given MAC address.
 
-  VIRTIO_NET_F_GUEST_TSO4 (7) Guest can receive TSOv4.
+\item [{VIRTIO_NET_F_GUEST_TSO4~(7)}] Guest can receive TSOv4.
 
-  VIRTIO_NET_F_GUEST_TSO6 (8) Guest can receive TSOv6.
+\item [{VIRTIO_NET_F_GUEST_TSO6~(8)}] Guest can receive TSOv6.
 
-  VIRTIO_NET_F_GUEST_ECN (9) Guest can receive TSO with ECN.
+\item [{VIRTIO_NET_F_GUEST_ECN~(9)}] Guest can receive TSO with ECN.
 
-  VIRTIO_NET_F_GUEST_UFO (10) Guest can receive UFO.
+\item [{VIRTIO_NET_F_GUEST_UFO~(10)}] Guest can receive UFO.
 
-  VIRTIO_NET_F_HOST_TSO4 (11) Device can receive TSOv4.
+\item [{VIRTIO_NET_F_HOST_TSO4~(11)}] Device can receive TSOv4.
 
-  VIRTIO_NET_F_HOST_TSO6 (12) Device can receive TSOv6.
+\item [{VIRTIO_NET_F_HOST_TSO6~(12)}] Device can receive TSOv6.
 
-  VIRTIO_NET_F_HOST_ECN (13) Device can receive TSO with ECN.
+\item [{VIRTIO_NET_F_HOST_ECN~(13)}] Device can receive TSO with ECN.
 
-  VIRTIO_NET_F_HOST_UFO (14) Device can receive UFO.
+\item [{VIRTIO_NET_F_HOST_UFO~(14)}] Device can receive UFO.
 
-  VIRTIO_NET_F_MRG_RXBUF (15) Guest can merge receive buffers.
+\item [{VIRTIO_NET_F_MRG_RXBUF~(15)}] Guest can merge receive buffers.
 
-  VIRTIO_NET_F_STATUS (16) Configuration status field is
+\item [{VIRTIO_NET_F_STATUS~(16)}] Configuration status field is
     available.
 
-  VIRTIO_NET_F_CTRL_VQ (17) Control channel is available.
+\item [{VIRTIO_NET_F_CTRL_VQ~(17)}] Control channel is available.
 
-  VIRTIO_NET_F_CTRL_RX (18) Control channel RX mode support.
+\item [{VIRTIO_NET_F_CTRL_RX~(18)}] Control channel RX mode support.
 
-  VIRTIO_NET_F_CTRL_VLAN (19) Control channel VLAN filtering.
+\item [{VIRTIO_NET_F_CTRL_VLAN~(19)}] Control channel VLAN filtering.
 
-  VIRTIO_NET_F_GUEST_ANNOUNCE(21) Guest can send gratuitous
+\item [{VIRTIO_NET_F_GUEST_ANNOUNCE~(21)}] Guest can send gratuitous
     packets.
+\end{description}
 
 \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Network Device / Feature bits / Legacy Interface: Feature bits}
-VIRTIO_NET_F_GSO (6) Device handles packets with any GSO type.
+\begin{description}
+\item [{VIRTIO_NET_F_GSO~(6)}] Device handles packets with any GSO type.
+\end{description}
 
 This was supposed to indicate segmentation offload support, but
 upon further investigation it became clear that multiple bits
@@ -2715,31 +2719,35 @@ device except where noted.
 
 \subsection{Feature bits}\label{sec:Device Types / Block Device / Feature bits}
 
-  VIRTIO_BLK_F_SIZE_MAX (1) Maximum size of any single segment is
+\begin{description}
+\item [{VIRTIO_BLK_F_SIZE_MAX~(1)}] Maximum size of any single segment is
     in “size_max”.
 
-  VIRTIO_BLK_F_SEG_MAX (2) Maximum number of segments in a
+\item [{VIRTIO_BLK_F_SEG_MAX~(2)}] Maximum number of segments in a
     request is in “seg_max”.
 
-  VIRTIO_BLK_F_GEOMETRY (4) Disk-style geometry specified in “
+\item [{VIRTIO_BLK_F_GEOMETRY~(4)}] Disk-style geometry specified in “
     geometry”.
 
-  VIRTIO_BLK_F_RO (5) Device is read-only.
+\item [{VIRTIO_BLK_F_RO~(5)}] Device is read-only.
 
-  VIRTIO_BLK_F_BLK_SIZE (6) Block size of disk is in “blk_size”.
+\item [{VIRTIO_BLK_F_BLK_SIZE~(6)}] Block size of disk is in “blk_size”.
 
-  VIRTIO_BLK_F_TOPOLOGY (10) Device exports information on optimal I/O
+\item [{VIRTIO_BLK_F_TOPOLOGY~(10)}] Device exports information on optimal I/O
     alignment.
+\end{description}
 
 \subsubsection{Legacy Interface: Feature bits}\label{sec:Device Types / Block Device / Feature bits / Legacy Interface: Feature bits}
-  VIRTIO_BLK_F_BARRIER (0) Host supports request barriers.
+\begin{description}
+\item [{VIRTIO_BLK_F_BARRIER~(0)}] Host supports request barriers.
 
-  VIRTIO_BLK_F_SCSI (7) Device supports scsi packet commands.
+\item [{VIRTIO_BLK_F_SCSI~(7)}] Device supports scsi packet commands.
 
-  VIRTIO_BLK_F_FLUSH (9) Cache flush command support.
+\item [{VIRTIO_BLK_F_FLUSH~(9)}] Cache flush command support.
 
-  VIRTIO_BLK_F_CONFIG_WCE (11) Device can toggle its cache between writeback
+\item [{VIRTIO_BLK_F_CONFIG_WCE~(11)}] Device can toggle its cache between writeback
     and writethrough modes.
+\end{description}
 
 VIRTIO_BLK_F_FLUSH was also called VIRTIO_BLK_F_WCE: Legacy drivers
 should only negotiate this feature if they are capable of sending
@@ -2976,12 +2984,14 @@ data and outgoing characters are placed in the transmit queue.
 
 \subsection{Feature bits}\label{sec:Device Types / Console Device / Feature bits}
 
-  VIRTIO_CONSOLE_F_SIZE (0) Configuration cols and rows fields
+\begin{description}
+\item [{VIRTIO_CONSOLE_F_SIZE~(0)}] Configuration cols and rows fields
     are valid.
 
-  VIRTIO_CONSOLE_F_MULTIPORT(1) Device has support for multiple
+\item [{VIRTIO_CONSOLE_F_MULTIPORT~(1)}] Device has support for multiple
     ports; configuration fields nr_ports and max_nr_ports are
     valid and control virtqueues will be used.
+\end{description}
 
 \subsection{Device configuration layout}\label{sec:Device Types / Console Device / Device configuration layout}
 
@@ -3129,11 +3139,13 @@ guest memory statistics to the host.
   Virtqueue 2 only exists if VIRTIO_BALLON_F_STATS_VQ set.
 
 \subsection{Feature bits}\label{sec:Device Types / Memory Balloon Device / Feature bits}
-  VIRTIO_BALLOON_F_MUST_TELL_HOST (0) Host must be told before
+\begin{description}
+\item [{VIRTIO_BALLOON_F_MUST_TELL_HOST~(0)}] Host must be told before
     pages from the balloon are used.
 
-  VIRTIO_BALLOON_F_STATS_VQ (1) A virtqueue for reporting guest
+\item [{VIRTIO_BALLOON_F_STATS_VQ~(1)}] A virtqueue for reporting guest
     memory statistics is present.
+\end{description}
 
 \subsection{Device configuration layout}\label{sec:Device Types / Memory Balloon Device / Device configuration layout}
   Both fields of this configuration
@@ -3302,14 +3314,16 @@ targets that receive and process the requests.
 
 \subsection{Feature bits}\label{sec:Device Types / SCSI Host Device / Feature bits}
 
-  VIRTIO_SCSI_F_INOUT (0) A single request can include both
+\begin{description}
+\item [{VIRTIO_SCSI_F_INOUT~(0)}] A single request can include both
     read-only and write-only data buffers.
 
-  VIRTIO_SCSI_F_HOTPLUG (1) The host should enable
+\item [{VIRTIO_SCSI_F_HOTPLUG~(1)}] The host should enable
     hot-plug/hot-unplug of new LUNs and targets on the SCSI bus.
 
-  VIRTIO_SCSI_F_CHANGE (2) The host will report changes to LUN
+\item [{VIRTIO_SCSI_F_CHANGE~(2)}] The host will report changes to LUN
     parameters via a VIRTIO_SCSI_T_PARAM_CHANGE event.
+\end{description}
 
 \subsection{Device configuration layout}\label{sec:Device Types / SCSI Host Device / Device configuration layout}
 
@@ -3836,11 +3850,12 @@ native endian of the guest rather than (necessarily) little-endian.
 
 Currently there are four device-independent feature bits defined:
 
-  VIRTIO_F_RING_INDIRECT_DESC (28) Negotiating this feature indicates
+\begin{description}
+\item [{VIRTIO_F_RING_INDIRECT_DESC~(28)}] Negotiating this feature indicates
   that the driver can use descriptors with the VRING_DESC_F_INDIRECT
   flag set, as described in \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}~\nameref{sec:Basic Facilities of a Virtio Device / Virtqueues / The Virtqueue Descriptor Table / Indirect Descriptors}.
 
-  VIRTIO_F_RING_EVENT_IDX(29) This feature enables the used_event
+\item [{VIRTIO_F_RING_EVENT_IDX~(29)}] This feature enables the used_event
   and the avail_event fields. If set, it indicates that the
   device should ignore the flags field in the available ring
   structure. Instead, the used_event field in this structure is
@@ -3851,9 +3866,10 @@ Currently there are four device-independent feature bits defined:
   driver should ignore the used_event field; the device should
   ignore the avail_event field; the flags field is used
 
-  VIRTIO_F_VERSION_1(32) This feature must be offered by any device
+\item [{VIRTIO_F_VERSION_1~(32)}] This feature must be offered by any device
   compliant with this specification, and acknowledged by all device
   drivers.
+\end{description}
 
 In addition, bit 30 is used by qemu's implementation to check for experimental
 early versions of virtio which did not perform correct feature negotiation,
@@ -3863,7 +3879,8 @@ and should not be used.
 
 Legacy or transitional devices may offer the following:
 
-VIRTIO_F_NOTIFY_ON_EMPTY (24) Negotiating this feature
+\begin{description}
+\item [{VIRTIO_F_NOTIFY_ON_EMPTY~(24)}] Negotiating this feature
   indicates that the driver wants an interrupt if the device runs
   out of available descriptors on a virtqueue, even though
   interrupts are suppressed using the VRING_AVAIL_F_NO_INTERRUPT
@@ -3874,9 +3891,10 @@ VIRTIO_F_NOTIFY_ON_EMPTY (24) Negotiating this feature
   using a timer if the device interrupts it when all the packets
   are transmitted.
 
-VIRTIO_F_ANY_LAYOUT (27) This feature indicates that the device
+\item [{VIRTIO_F_ANY_LAYOUT~(27)}] This feature indicates that the device
   accepts arbitrary descriptor layouts, as described in Section
   \ref{sec:Basic Facilities of a Virtio Device / Virtqueues / Message Framing / Legacy Interface: Message Framing}~\nameref{sec:Basic Facilities of a Virtio Device / Virtqueues / Message Framing / Legacy Interface: Message Framing}.
+\end{description}
 
 \chapter{virtio_ring.h}\label{sec:virtio-ring.h}
 
